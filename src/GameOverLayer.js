@@ -11,6 +11,7 @@ var GameOverLayer = cc.LayerColor.extend({
 
         this.readUserData();
 
+        this.scheduleUpdate();
         this.addKeyboardHandlers();
 
         // check can win at least 1 stage?
@@ -36,6 +37,16 @@ var GameOverLayer = cc.LayerColor.extend({
     onKeyDown: function (keyCode) {
         if (keyCode == cc.KEY.space) {
             this.replay();
+        }
+    },
+
+    update: function () {
+        if (GameOverLayer.loadingData) {
+            // update label with high score
+            this.highStageLabel.setString('The Highest stage ever \nfrom ' + historyData.name + ' is ' + historyData.stage);
+            this.startGame.setEnabled(true);
+        } else {
+            this.startGame.setEnabled(false);
         }
     },
 
@@ -66,8 +77,7 @@ var GameOverLayer = cc.LayerColor.extend({
                 historyData.stage = current;
                 historyData.name = firebase.auth().currentUser.displayName;
             }
-            // update label with high score
-            GameOverLayer.highStageLabel.setString('The Highest stage ever \nfrom ' + historyData.name + ' is ' + historyData.stage);
+            GameOverLayer.loadingData = true;
         });
     },
 
@@ -91,9 +101,9 @@ var GameOverLayer = cc.LayerColor.extend({
     },
 
     createHighScoreLabel: function () {
-        GameOverLayer.highStageLabel = cc.LabelTTF.create('', 'Arial', 40);
-        GameOverLayer.highStageLabel.setPosition(new cc.Point(screenWidth / 2, screenHeight - 100));
-        this.addChild(GameOverLayer.highStageLabel);
+        this.highStageLabel = cc.LabelTTF.create('', 'Arial', 40);
+        this.highStageLabel.setPosition(new cc.Point(screenWidth / 2, screenHeight - 100));
+        this.addChild(this.highStageLabel);
     },
 
     createScoreLabel: function () {
@@ -102,6 +112,9 @@ var GameOverLayer = cc.LayerColor.extend({
         this.addChild(this.stageLabel);
     }
 });
+
+// is 'true' only when data is loaded from the server
+GameOverLayer.loadingData = false;
 
 var GameOverScene = cc.Scene.extend({
     onEnter: function () {
