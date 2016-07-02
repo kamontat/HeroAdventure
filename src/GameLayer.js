@@ -3,13 +3,9 @@ var GameLayer = cc.LayerColor.extend({
     init: function () {
         this._super(new cc.Color(60, 179, 113, 255));
         this.setPosition(new cc.Point(0, 0));
-        // keyboard
-        this.addKeyboardHandlers();
-        // update
-        this.scheduleUpdate();
         // button
-        this.spAttackButton();
-        this.upgradeButton();
+        this.createSpAttackButton();
+        this.createUpgradeButton();
         // other
         this.createBg();
         this.createBar();
@@ -26,6 +22,10 @@ var GameLayer = cc.LayerColor.extend({
         this.createSPLabel();
         this.createMuteLabel();
         this.createPlayerNameLabel();
+        // keyboard
+        this.addKeyboardHandlers();
+        // update
+        this.scheduleUpdate();
     },
 
     addKeyboardHandlers: function () {
@@ -245,7 +245,7 @@ var GameLayer = cc.LayerColor.extend({
         cc.director.runScene(new GameOverScene());
     },
 
-    spAttackButton: function () {
+    createSpAttackButton: function () {
         const spAttack = new cc.MenuItemImage(
             'res/Mechanic/SPAttackBtn.jpg',
             'res/Mechanic/SPAttackBtn_push.jpg',
@@ -257,7 +257,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.SPButton);
     },
 
-    upgradeButton: function () {
+    createUpgradeButton: function () {
         const upgrade = new cc.MenuItemImage(
             'res/Mechanic/UpgradeBtn.jpg',
             'res/Mechanic/UpgradeBtn_push.jpg',
