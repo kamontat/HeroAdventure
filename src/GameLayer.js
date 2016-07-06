@@ -304,7 +304,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createStageLabel: function () {
-        this.stageLabel = cc.LabelTTF.create('Stage: ' + stage, 'Arial', 30);
+        this.stageLabel = cc.LabelTTF.create('Stage: ' + (stage % 10 == 0 ? 'Boss(' + stage / 10 + ')!' : stage), 'Arial', 30);
         this.stageLabel.setPosition(new cc.Point(screenWidth * 0.5, 550));
         this.addChild(this.stageLabel);
     },
