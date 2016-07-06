@@ -96,7 +96,7 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
     goBack: function(){
         try{
             if(ccui.WebView._polyfill.closeHistory)
-                return cc.log("The current browser does not support the GoBack");
+                return cc.log("The current browser does not support the backButton");
             var iframe = this._renderCmd._iframe;
             if(iframe){
                 var win = iframe.contentWindow;

@@ -2,7 +2,7 @@ var UpgradeLayer = cc.LayerColor.extend({
     init: function () {
         this._super(new cc.Color(127, 127, 127, 255));
         this.setPosition(new cc.Point(0, 0));
-        this.GoBack();
+        this.backButton();
         this.createUpgradePointLabel();
         this.createHpUpgradeLabel();
         this.createPowerUpgradeLabel();
@@ -90,7 +90,7 @@ var UpgradeLayer = cc.LayerColor.extend({
         }
     },
 
-    GoBack: function () {
+    backButton: function () {
         this.back = new cc.MenuItemImage(
             'res/Mechanic/BackBtn.jpg',
             'res/Mechanic/BackBtn_push.jpg',

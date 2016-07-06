@@ -262,7 +262,6 @@ var GameLayer = cc.LayerColor.extend({
             'res/Mechanic/UpgradeBtn.jpg',
             'res/Mechanic/UpgradeBtn_push.jpg',
             function () {
-                tapHere = false;
                 cc.director.runScene(new UpgradeScene());
             }, this);
         this.UpgradeButton = new cc.Menu(upgrade);
@@ -284,8 +283,13 @@ var GameLayer = cc.LayerColor.extend({
 
     createTap: function () {
         this.tap = new Tap();
-        this.tap.setOpacity(0);
-        this.tap.rePos();
+        if (tapHere) {
+            this.tap.setOpacity(255);
+            this.tap.start();
+        } else {
+            this.tap.setOpacity(0);
+            this.tap.rePos();
+        }
         this.addChild(this.tap);
     },
 
