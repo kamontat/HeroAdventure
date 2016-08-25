@@ -384,7 +384,7 @@ var upPoint = 0;
 // charge attack
 var countSuccess = 0;
 // object speed
-var tSpeed = 1;
+var tSpeed = 2;
 // 'attack button' tapHere, true = tap is appear; otherwise tap disappear
 var tapHere = false;
 // is sound or mute
