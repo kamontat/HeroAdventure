@@ -7,8 +7,8 @@ var res = {
     //button
     defendButton_jpg: "res/Mechanic/DefendBtn.jpg",
     defendButtonPush_jpg: "res/Mechanic/DefendBtn_push.jpg",
-    spButton_jpg: "res/Mechanic/SPAttackBtn.jpg",
-    spButtonPush_jpg: "res/Mechanic/SPAttackBtn_push.jpg",
+    spButton_jpg: "res/Mechanic/SpAttackBtn.jpg",
+    spButtonPush_jpg: "res/Mechanic/SpAttackBtn_push.jpg",
     UpgradeButton_jpg: "res/Mechanic/UpgradeBtn.jpg",
     UpgradeButtonPush_jpg: "res/Mechanic/UpgradeBtn_push.jpg",
     UpgradePointButton_jpg: "res/Mechanic/UpgradePointBtn.jpg",

@@ -247,8 +247,8 @@ var GameLayer = cc.LayerColor.extend({
 
     createSpAttackButton: function () {
         const spAttack = new cc.MenuItemImage(
-            'res/Mechanic/SPAttackBtn.jpg',
-            'res/Mechanic/SPAttackBtn_push.jpg',
+            'res/Mechanic/SpAttackBtn.jpg',
+            'res/Mechanic/SpAttackBtn_push.jpg',
             function () {
                 this.spAttack();
             }, this);
