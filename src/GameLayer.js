@@ -191,17 +191,17 @@ var GameLayer = cc.LayerColor.extend({
         cc.audioEngine.playEffect('res/music/died.mp3');
         stage++;
 
-        // FEATURE: 18/6/59 update hp (boss) -> 24*stage , (normal) -> 11*stage
+        // FEATURE: 18/6/59 update hp (boss) -> 22*stage , (normal) -> 9*stage
         // FEATURE: 27/6/59 update power (boss) -> 4.3*stage , (normal) -> 1.3*stage
-        // FEATURE: 27/6/59 update upPoint by 2, if it's boss
+        // FEATURE: 27/6/59 update upPoint by 3, if it's boss
         if (this.isBoss()) {
-            upPoint += 2;
-            this.setMonsterHp(monsterHpDefault + (24 * stage));
+            upPoint += 3;
+            this.setMonsterHp(monsterHpDefault + (22 * stage));
             Monster.setPower(monsterPowerDefault + (4.3 * stage));
             maxStage += 10;
         } else {
-            upPoint += 1;
-            this.setMonsterHp(monsterHpDefault + (11 * stage));
+            upPoint += Math.ceil(Math.random() * 100) == 45 ? 2 : 1;
+            this.setMonsterHp(monsterHpDefault + (9 * stage));
             Monster.setPower(monsterPowerDefault + (1.3 * stage));
         }
 
