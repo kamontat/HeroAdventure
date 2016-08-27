@@ -52,7 +52,7 @@ var UpgradeLayer = cc.LayerColor.extend({
             Hero.setHp(hp);
 
             this.upPointLabel.setString('Upgrade Point: ' + upPoint);
-            this.hpUpLabel.setString('HP (' + hp + '+' + futureHp + '): ' + hpUpgrade);
+            this.hpUpLabel.setString('HP (' + GameLayer.getText(Hero.getHp()) + '+' + GameLayer.getText(Number(futureHp)) + '): ' + hpUpgrade);
         }
     },
 
@@ -69,7 +69,7 @@ var UpgradeLayer = cc.LayerColor.extend({
             Hero.setPower(power);
 
             this.upPointLabel.setString('Upgrade Point: ' + upPoint);
-            this.powerUpLabel.setString('POWER (' + power + '+' + futurePower + '): ' + powerUpgrade);
+            this.powerUpLabel.setString('POWER (' + GameLayer.getText(Hero.getPower()) + '+' + GameLayer.getText(Number(futurePower)) + '): ' + powerUpgrade);
         }
     },
 
@@ -153,7 +153,7 @@ var UpgradeLayer = cc.LayerColor.extend({
     createHpUpgradeLabel: function () {
         const futureHp = (3 * (hpUpgrade + 1) * stage).toFixed(0);
 
-        this.hpUpLabel = cc.LabelTTF.create('HP (' + Hero.getHp().toFixed(2) + '+' + futureHp + '): ' + hpUpgrade, 'Arial', 30);
+        this.hpUpLabel = cc.LabelTTF.create('HP (' + GameLayer.getText(Hero.getHp()) + '+' + GameLayer.getText(Number(futureHp)) + '): ' + hpUpgrade, 'Arial', 30);
         this.hpUpLabel.setPosition(new cc.Point(screenWidth * 0.25, screenHeight - 50));
         this.addChild(this.hpUpLabel);
     },
@@ -161,7 +161,7 @@ var UpgradeLayer = cc.LayerColor.extend({
     createPowerUpgradeLabel: function () {
         const futurePower = ((3 / 2) * ((powerUpgrade + 1) / 10) * (stage / 4)).toFixed(4);
 
-        this.powerUpLabel = cc.LabelTTF.create('POWER (' + Hero.getPower().toFixed(2) + '+' + futurePower + '): ' + powerUpgrade, 'Arial', 30);
+        this.powerUpLabel = cc.LabelTTF.create('POWER (' + GameLayer.getText(Hero.getPower()) + '+' + GameLayer.getText(Number(futurePower)) + '): ' + powerUpgrade, 'Arial', 30);
         this.powerUpLabel.setPosition(new cc.Point(screenWidth * 0.75, screenHeight - 50));
         this.addChild(this.powerUpLabel);
     },

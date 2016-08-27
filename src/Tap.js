@@ -64,7 +64,11 @@ var Tap = cc.Sprite.extend({
     setSpeed: function () {
         // FEATURE: 18/6/59 increase speed every stage by 2
         speed = tSpeed + (stage * 2);
-        speed = Math.abs(speed) - decrease;
+        if (decrease > Math.abs(speed)) {
+            speed = 2;
+        } else {
+            speed = Math.abs(speed) - decrease;
+        }
     },
 
     resetSpeed: function () {

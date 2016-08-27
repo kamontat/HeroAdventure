@@ -54,6 +54,11 @@ var GameLayer = cc.LayerColor.extend({
             cc.director.runScene(new UpgradeScene());
         }
 
+        // hack
+        if (keyCode == cc.KEY.q) {
+            this.heroAttack(1);
+        }
+
         // sound mute
         if (keyCode == cc.KEY.m) {
             if (sound) {
@@ -92,12 +97,12 @@ var GameLayer = cc.LayerColor.extend({
 
     setHeroHp: function (newHp) {
         Hero.setHp(newHp);
-        this.heroLabel.setString('HP: ' + Hero.getHp().toFixed(2));
+        this.heroLabel.setString('HP: ' + GameLayer.getText(Hero.getHp()));
     },
 
     setMonsterHp: function (newHp) {
         Monster.setHp(newHp);
-        this.monsterLabel.setString('HP: ' + Monster.getHp().toFixed(2));
+        this.monsterLabel.setString('HP: ' + GameLayer.getText(Monster.getHp()));
     },
 
     isBoss: function () {
@@ -292,13 +297,13 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createHeroLabel: function () {
-        this.heroLabel = cc.LabelTTF.create('HP: ' + Hero.getHp().toFixed(2), 'Arial', 40);
+        this.heroLabel = cc.LabelTTF.create('HP: ' + GameLayer.getText(Hero.getHp()), 'Arial', 40);
         this.heroLabel.setPosition(new cc.Point(screenWidth * 0.25, 500));
         this.addChild(this.heroLabel);
     },
 
     createMonsterLabel: function () {
-        this.monsterLabel = cc.LabelTTF.create('HP: ' + Monster.getHp().toFixed(2), 'Arial', 40);
+        this.monsterLabel = cc.LabelTTF.create('HP: ' + GameLayer.getText(Monster.getHp()), 'Arial', 40);
         this.monsterLabel.setPosition(new cc.Point(screenWidth * 0.75, 500));
         this.addChild(this.monsterLabel);
     },
@@ -343,6 +348,19 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.eff2);
     }
 });
+
+GameLayer.getText = function (num) {
+    var text = num.toFixed(2);
+
+    if (num > 1000000000) {
+        text = Number(num / 1000000000).toFixed(1) + "B";
+    } else if (num > 1000000) {
+        text = Number(num / 1000000).toFixed(1) + "M";
+    } else if (num > 1000) {
+        text = Number(num / 1000).toFixed(1) + "K"
+    }
+    return text;
+};
 
 var StartScene = cc.Scene.extend({
     onEnter: function () {
