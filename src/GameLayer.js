@@ -3,9 +3,6 @@ var GameLayer = cc.LayerColor.extend({
     init: function () {
         this._super(new cc.Color(60, 179, 113, 255));
         this.setPosition(new cc.Point(0, 0));
-        // button
-        this.createSpAttackButton();
-        this.createUpgradeButton();
         // other
         this.createBg();
         this.createBar();
@@ -22,6 +19,9 @@ var GameLayer = cc.LayerColor.extend({
         this.createSPLabel();
         this.createMuteLabel();
         this.createPlayerNameLabel();
+        // button
+        this.createSpAttackButton();
+        this.createUpgradeButton();
         // keyboard
         this.addKeyboardHandlers();
         // update
@@ -259,7 +259,7 @@ var GameLayer = cc.LayerColor.extend({
 
     createBg: function () {
         this.bg = new Bg();
-        this.bg.setPosition(new cc.Point(400, 420));
+        this.bg.setPosition(new cc.Point(screenWidth / 2, screenHeight / 2));
         this.addChild(this.bg, 0);
     },
 
