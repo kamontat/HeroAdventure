@@ -39,7 +39,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function (keyCode, event) {
-        // isAttack
+        // Attack
         if (keyCode == cc.KEY.a) {
             this.attack();
         }
@@ -52,11 +52,6 @@ var GameLayer = cc.LayerColor.extend({
         // update page
         if (keyCode == cc.KEY.u) {
             cc.director.runScene(new UpgradeScene());
-        }
-
-        // hack
-        if (keyCode == cc.KEY.q) {
-            this.heroAttack(1);
         }
 
         // sound mute
