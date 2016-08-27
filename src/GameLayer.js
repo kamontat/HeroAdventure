@@ -40,18 +40,20 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function (keyCode, event) {
         // isAttack
-        if (keyCode == cc.KEY.z) {
+        if (keyCode == cc.KEY.a) {
             this.attack();
         }
+
         // sp Attack
-        if (keyCode == cc.KEY.space) {
+        if (keyCode == cc.KEY.s) {
             this.spAttack();
         }
 
         // update page
-        if (keyCode == cc.KEY.c) {
+        if (keyCode == cc.KEY.u) {
             cc.director.runScene(new UpgradeScene());
         }
+
         // sound mute
         if (keyCode == cc.KEY.m) {
             if (sound) {
@@ -67,28 +69,8 @@ var GameLayer = cc.LayerColor.extend({
             }
         }
 
-        // hack
-        if (keyCode == cc.KEY.q) {
-            this.heroAttack(1);
-            console.warn("complete attack");
-        }
-        // hack
-        if (keyCode == cc.KEY.h) {
-            upPoint++;
-            console.warn("complete add upPoint");
-        }
-        // hack
-        if (keyCode == cc.KEY.j) {
-            countSuccess += 5;
-            console.warn("complete add 5 sp charge");
-        }
-        if (keyCode == cc.KEY.k) {
-            maxStage += 10;
-            console.warn("complete expend maxStage");
-        }
-
         // debug code
-        if (keyCode == cc.KEY.s) {
+        if (keyCode == cc.KEY.l) {
             firebase.database().ref('/').once('value').then(function (snapshot) {
                 console.info("----------------------------------");
                 console.info(firebase.auth().currentUser.displayName);

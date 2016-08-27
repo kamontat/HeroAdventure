@@ -5,7 +5,6 @@ var Hero = cc.Sprite.extend({
     ctor: function () {
         this._super();
         this.initWithFile('res/Character/char1.png');
-
     },
 
     resetHp: function () {
