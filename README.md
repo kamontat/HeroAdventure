@@ -18,7 +18,13 @@ I start to renovate my friend game because i see when he present his game, it's 
     - 0.0.4 <- renovate `upgrade page`, add `speed` upgrade
 - 0.1.0 <- expend top level to `50`
     - 0.1.1 <- fixed some bug
-- 0.2.0 <- add boss enemy n every 10 stage
+- 0.2.0 <- add boss enemy every 10 stage
+- 0.3.0 <- can keep high score
+- 0.4.0 <- add login by `facebook` and `guest`
+    - 0.4.1 <- fixed many bug
+    - 0.4.2 <- fixed some bug and improvement
+- 1.0.0 <- Add new HowToPlay picture
+    - 1.0.1 <- add `K`, `M`, `B` when status is too high
 
 ### What is this repository for? ###
 
