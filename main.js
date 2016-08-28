@@ -79,12 +79,12 @@ cc.game.onStart = function () {
     cc.LoaderScene.preload(g_resources, function () {
         cc.director.runScene(new TitleScene);
     }, this);
-
 };
 
 cc.game.run();
 
 var checkBrowser = function () {
+    console.log("Your OS: " + cc.sys.os);
     var nu = navigator.userAgent;
     if ((nu.indexOf("Opera") || nu.indexOf('OPR')) != -1) {
         browser = 'Opera';
@@ -130,6 +130,5 @@ var myIP = function (getText) {
             return ipAddress[1].replace(" ", "");
         }
     }
-
     return false;
 };

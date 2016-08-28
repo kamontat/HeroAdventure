@@ -229,8 +229,8 @@ var GameLayer = cc.LayerColor.extend({
 
     createSpAttackButton: function () {
         const spAttack = new cc.MenuItemImage(
-            'res/Mechanic/SpAttackBtn.jpg',
-            'res/Mechanic/SpAttackBtn_push.jpg',
+            'res/Mechanic/SpAttackBtn.png',
+            'res/Mechanic/SpAttackBtn_push.png',
             function () {
                 this.spAttack();
             }, this);
@@ -241,8 +241,8 @@ var GameLayer = cc.LayerColor.extend({
 
     createUpgradeButton: function () {
         const upgrade = new cc.MenuItemImage(
-            'res/Mechanic/UpgradeBtn.jpg',
-            'res/Mechanic/UpgradeBtn_push.jpg',
+            'res/Mechanic/UpgradeBtn.png',
+            'res/Mechanic/UpgradeBtn_push.png',
             function () {
                 cc.director.runScene(new UpgradeScene());
             }, this);

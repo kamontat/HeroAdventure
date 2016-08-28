@@ -4,7 +4,12 @@ var TitleLayer = cc.LayerColor.extend({
         this._super(new cc.Color(127, 127, 127, 255));
         this.setPosition(new cc.Point(0, 0));
         // sign out
-        firebase.auth().signOut();
+        if (firebase.auth().currentUser != null) {
+            if (!firebase.auth().currentUser.isAnonymous) {
+                firebase.auth().signOut();
+            }
+        }
+
         this.createButton();
         this.createMuteLabel();
         this.addKeyboardHandlers();
@@ -22,10 +27,6 @@ var TitleLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function (keyCode, event) {
-        if (keyCode == cc.KEY.space) {
-            this.play();
-        }
-
         // sound mute
         if (keyCode == cc.KEY.m) {
             if (sound) {
@@ -43,21 +44,18 @@ var TitleLayer = cc.LayerColor.extend({
     },
 
     play: function () {
-        if (!firebase.auth().currentUser) {
-            // FEATURE: 25/6/59 login via facebook be a guest
-            var facebook = confirm("Sign in facebook account or guest, to keep your high score(guest will keep by using ip-address).\nDo you want to login facebook");
-            // disable button when game loading
-            this.startGame.setEnabled(false);
-            // show loading label
-            this.createLoadingLabel();
+        // FEATURE: 25/6/59 login via facebook be a guest
+        var facebook = confirm("Sign in facebook account or guest, to keep your high score(guest will keep by using ip-address).\nDo you want to login facebook");
+        // disable button when game loading
+        this.startGame.setEnabled(false);
+        // show loading label
+        this.createLoadingLabel();
 
-            if (facebook) {
-                this.loginViaFacebook();
-            } else {
-                this.loginViaAnonymous();
-            }
-        } else
-            cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+        if (facebook) {
+            this.loginViaFacebook();
+        } else {
+            this.loginViaAnonymous();
+        }
 
     },
 
@@ -74,27 +72,43 @@ var TitleLayer = cc.LayerColor.extend({
     },
 
     loginViaAnonymous: function () {
-        firebase.auth().signInAnonymously();
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                if (user.isAnonymous) {
-                    user.updateProfile({displayName: myIP("query")}).then(function () {
-                        // Update name successful.
-                        cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
-                    });
+        if (firebase.auth().currentUser == null) {
+            firebase.auth().signInAnonymously();
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    if (user.isAnonymous) {
+                        user.updateProfile({displayName: myIP("query")}).then(function () {
+                            // Update name successful.
+                            cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+                        });
+                    }
                 }
-            }
-        });
-
-
+            });
+        } else if (!firebase.auth().currentUser.isAnonymous) {
+            firebase.auth().signInAnonymously();
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    if (user.isAnonymous) {
+                        user.updateProfile({displayName: myIP("query")}).then(function () {
+                            // Update name successful.
+                            cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+                        });
+                    }
+                }
+            });
+        } else {
+            firebase.auth().currentUser.updateProfile({displayName: myIP("query")}).then(function () {
+                // Update name successful.
+                cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+            });
+        }
         console.info("login as anonymously");
     },
 
     createButton: function () {
         this.button = new cc.MenuItemImage(
-            'res/Others/HowToPlay.jpg',
-            'res/Others/HowToPlay.jpg',
+            'res/Others/HowToPlay.png',
+            'res/Others/HowToPlay.png',
             this.play, this);
         this.startGame = new cc.Menu(this.button);
         this.startGame.setPosition(new cc.Point(400, 300));

@@ -6,7 +6,7 @@ var Tap = cc.Sprite.extend({
 
     ctor: function () {
         this._super();
-        this.initWithFile('res/Mechanic/tap.png');
+        this.initWithFile('res/Mechanic/Tap.png');
 
         this.setSpeed();
     },
@@ -55,7 +55,7 @@ var Tap = cc.Sprite.extend({
     closeTo: function (obj) {
         var myPos = this.getPositionX();
         var oPos = obj.getPositionX();
-        return (Math.abs(myPos - oPos) <= 15);
+        return (Math.abs(myPos - oPos) <= Tap.centerSize);
     },
 
     /**
@@ -85,13 +85,14 @@ var Tap = cc.Sprite.extend({
     },
 
     setStartPos: function () {
-
         var random = Math.round(Math.random() * 2);
         if (random == 0) {
             speed *= -1;
         }
     }
 });
+
+Tap.centerSize = 18;
 
 // create static method
 Tap.decreaseSpeed = function () {

@@ -92,8 +92,8 @@ var GameOverLayer = cc.LayerColor.extend({
 
     createReplayButton: function () {
         this.button = new cc.MenuItemImage(
-            'res/Mechanic/RestartBtn.jpg',
-            'res/Mechanic/RestartBtn_push.jpg',
+            'res/Mechanic/RestartBtn.png',
+            'res/Mechanic/RestartBtn_push.png',
             this.replay, this);
         this.startGame = new cc.Menu(this.button);
         this.startGame.setPosition(new cc.Point(screenWidth / 2, 100));

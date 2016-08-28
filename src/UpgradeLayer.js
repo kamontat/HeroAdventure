@@ -92,8 +92,8 @@ var UpgradeLayer = cc.LayerColor.extend({
 
     backButton: function () {
         this.back = new cc.MenuItemImage(
-            'res/Mechanic/BackBtn.jpg',
-            'res/Mechanic/BackBtn_push.jpg',
+            'res/Mechanic/BackBtn.png',
+            'res/Mechanic/BackBtn_push.png',
             function () {
                 cc.director.runScene(new StartScene());
             }, this);
@@ -105,8 +105,8 @@ var UpgradeLayer = cc.LayerColor.extend({
     // up-left
     hpButton: function () {
         var hpUp = new cc.MenuItemImage(
-            'res/Mechanic/UpgradePointBtn.jpg',
-            'res/Mechanic/UpgradePointBtn_push.jpg',
+            'res/Mechanic/UpgradePointBtn.png',
+            'res/Mechanic/UpgradePointBtn_push.png',
             function () {
                 this.hpUpgrade();
             }, this);
@@ -119,8 +119,8 @@ var UpgradeLayer = cc.LayerColor.extend({
     // up-right
     powerButton: function () {
         var powerUp = new cc.MenuItemImage(
-            'res/Mechanic/UpgradePointBtn.jpg',
-            'res/Mechanic/UpgradePointBtn_push.jpg',
+            'res/Mechanic/UpgradePointBtn.png',
+            'res/Mechanic/UpgradePointBtn_push.png',
             function () {
                 this.powerUpgrade();
             }, this);
@@ -133,8 +133,8 @@ var UpgradeLayer = cc.LayerColor.extend({
     // down-left
     speedButton: function () {
         var speed = new cc.MenuItemImage(
-            'res/Mechanic/UpgradePointBtn.jpg',
-            'res/Mechanic/UpgradePointBtn_push.jpg',
+            'res/Mechanic/UpgradePointBtn.png',
+            'res/Mechanic/UpgradePointBtn_push.png',
             function () {
                 this.speedUpgrade();
             }, this);
@@ -192,4 +192,3 @@ var UpgradeScene = cc.Scene.extend({
 var hpUpgrade = 0;
 var powerUpgrade = 0;
 var speedUpgrade = 0;
-
