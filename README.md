@@ -23,8 +23,11 @@ I start to renovate my friend game because i see when he present his game, it's 
 - 0.4.0 <- add login by `facebook` and `guest`
     - 0.4.1 <- fixed many bug
     - 0.4.2 <- fixed some bug and improvement
+
+#### Version 1 log:
+
 - 1.0.0 <- Add new HowToPlay picture
-    - 1.0.1 <- add `K`, `M`, `B` when status is too high
+    - 1.1.0 <- add `K`, `M`, `B` when status is too high
 
 ### What is this repository for? ###
 
