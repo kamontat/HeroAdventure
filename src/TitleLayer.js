@@ -3,6 +3,8 @@ var TitleLayer = cc.LayerColor.extend({
     init: function () {
         this._super(new cc.Color(127, 127, 127, 255));
         this.setPosition(new cc.Point(0, 0));
+        // sign out
+        firebase.auth().signOut();
         this.createButton();
         this.createMuteLabel();
         this.addKeyboardHandlers();
@@ -54,13 +56,18 @@ var TitleLayer = cc.LayerColor.extend({
             } else {
                 this.loginViaAnonymous();
             }
-        } else cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+        } else
+            cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+
     },
 
     loginViaFacebook: function () {
+        var self = this;
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
             cc.director.runScene(cc.TransitionCrossFade.create(0.5, new StartScene()));
+        }).catch(function (error) {
+            self.loadingLabel.setString(error);
         });
 
         console.info("login as facebook");
@@ -108,6 +115,7 @@ var TitleLayer = cc.LayerColor.extend({
         this.addChild(this.loadingLabel);
     }
 });
+
 var TitleScene = cc.Scene.extend({
     onEnter: function () {
         this._super();

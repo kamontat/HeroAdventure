@@ -18,7 +18,7 @@
     "src/Hero.js",
     "src/Monster.js",
     "src/UpgradeLayer.js",
-    "src/Title.js",
+    "src/TitleLayer.js",
     "src/GameOverLayer.js",
     "src/Bg.js",
     "src/effect.js"
