@@ -1,7 +1,8 @@
 var res = {
     // images
     title_png: "res/Others/HowToPlay.png",
-    bg_png: "res/Others/bg.png",
+    mainBg_png: "res/Others/MainBackground.png",
+    upgradeBg_png: "res/Others/UpgradeBackground.png",
     bar_png: "res/Mechanic/bar.png",
     tap_png: "res/Mechanic/Tap.png",
     eff_png: "res/Others/eff.png",

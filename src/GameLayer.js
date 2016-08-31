@@ -258,7 +258,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBg: function () {
-        this.bg = new Bg();
+        this.bg = new MainBg();
         this.bg.setPosition(new cc.Point(screenWidth / 2, screenHeight / 2));
         this.addChild(this.bg, 0);
     },
