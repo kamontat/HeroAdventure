@@ -1,6 +1,6 @@
 var GameLayer = cc.LayerColor.extend({
 
-    init: function () {
+    init: function() {
         this._super(new cc.Color(60, 179, 113, 255));
         this.setPosition(new cc.Point(0, 0));
         // other
@@ -28,17 +28,17 @@ var GameLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
     },
 
-    addKeyboardHandlers: function () {
+    addKeyboardHandlers: function() {
         var self = this;
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
-            onKeyPressed: function (keyCode, event) {
+            onKeyPressed: function(keyCode, event) {
                 self.onKeyDown(keyCode, event);
             }
         }, this);
     },
 
-    onKeyDown: function (keyCode, event) {
+    onKeyDown: function(keyCode, event) {
         // Attack
         if (keyCode == cc.KEY.a) {
             this.attack();
@@ -71,7 +71,7 @@ var GameLayer = cc.LayerColor.extend({
 
         // debug code
         if (keyCode == cc.KEY.l) {
-            firebase.database().ref('/').once('value').then(function (snapshot) {
+            firebase.database().ref('/').once('value').then(function(snapshot) {
                 console.info("----------------------------------");
                 console.info(firebase.auth().currentUser.displayName);
                 console.info(firebase.auth().currentUser.email);
@@ -81,7 +81,9 @@ var GameLayer = cc.LayerColor.extend({
                 console.info("speed: " + Tap.getSpeed());
                 console.info("hero hp: " + Hero.getHp());
                 console.info("hero power: " + Hero.getPower());
-                console.info("hero sp-attack: " + ((Hero.getPower() * (countSuccess - 1)) < 0 ? 0 : (Hero.getPower() * (countSuccess - 1))));
+                console.info("hero sp-attack: " + ((Hero.getPower() * (countSuccess - 1)) < 0
+                    ? 0
+                    : (Hero.getPower() * (countSuccess - 1))));
                 console.info("monster hp: " + Monster.getHp());
                 console.info("monster power: " + Monster.getPower());
                 console.info("----------------------------------");
@@ -90,21 +92,21 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
 
-    setHeroHp: function (newHp) {
+    setHeroHp: function(newHp) {
         Hero.setHp(newHp);
         this.heroLabel.setString('HP: ' + GameLayer.getText(Hero.getHp()));
     },
 
-    setMonsterHp: function (newHp) {
+    setMonsterHp: function(newHp) {
         Monster.setHp(newHp);
         this.monsterLabel.setString('HP: ' + GameLayer.getText(Monster.getHp()));
     },
 
-    isBoss: function () {
+    isBoss: function() {
         return stage % 10 == 0;
     },
 
-    attack: function () {
+    attack: function() {
         if (tapHere) {
             this.tap.stop();
             // hero isAttack
@@ -122,7 +124,7 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
 
-    spAttack: function () {
+    spAttack: function() {
         if (countSuccess >= 5) {
             this.heroAttack(countSuccess - 1);
             countSuccess = 0;
@@ -134,12 +136,14 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     // multiply mean power * multiply to attack monster
-    heroAttack: function (multiply) {
+    heroAttack: function(multiply) {
         this.setMonsterHp(Monster.getHp() - (Hero.getPower() * multiply));
 
         countSuccess++;
 
-        this.spLabel.setString('SP charge: ' + (countSuccess < 5 ? countSuccess : 'MAX(' + (countSuccess - 4) + ')'));
+        this.spLabel.setString('SP charge: ' + (countSuccess < 5
+            ? countSuccess
+            : 'MAX(' + (countSuccess - 4) + ')'));
 
         if (this.monster.isDead())
             this.passTheLevel();
@@ -148,14 +152,16 @@ var GameLayer = cc.LayerColor.extend({
         this.AttackPos("hero");
     },
 
-    monsterAttack: function () {
+    monsterAttack: function() {
         this.setHeroHp(Hero.getHp() - Monster.getPower());
 
         if (countSuccess != 0) {
             countSuccess--;
         }
 
-        this.spLabel.setString('SP charge: ' + (countSuccess < 5 ? countSuccess : 'MAX(' + (countSuccess - 4) + ')'));
+        this.spLabel.setString('SP charge: ' + (countSuccess < 5
+            ? countSuccess
+            : 'MAX(' + (countSuccess - 4) + ')'));
 
         if (this.hero.isDead())
             this.gameOver();
@@ -165,7 +171,7 @@ var GameLayer = cc.LayerColor.extend({
         this.AttackPos("monster");
     },
 
-    AttackPos: function (who) {
+    AttackPos: function(who) {
         if (who == "hero") {
             this.hero.setPosition(new cc.Point(400, 350));
             this.eff1.setOpacity(255);
@@ -175,29 +181,31 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
 
-    returnEffect: function () {
+    returnEffect: function() {
         this.hero.setPosition(new cc.Point(200, 350));
         this.monster.setPosition(new cc.Point(600, 373));
         this.eff1.setOpacity(0);
         this.eff2.setOpacity(0);
     },
 
-    passTheLevel: function () {
+    passTheLevel: function() {
         cc.audioEngine.playEffect('res/music/died.mp3');
         stage++;
 
-        // FEATURE: 18/6/59 update hp (boss) -> 22*stage , (normal) -> 9*stage
+        // FEATURE: 18/6/59 update hp (boss) -> 19.4*stage , (normal) -> 9*stage
         // FEATURE: 27/6/59 update power (boss) -> 4.3*stage , (normal) -> 1.3*stage
         // FEATURE: 27/6/59 update upPoint by 3, if it's boss
         if (this.isBoss()) {
             upPoint += 3;
-            this.setMonsterHp(monsterHpDefault + (22 * stage));
-            Monster.setPower(monsterPowerDefault + (4.3 * stage));
+            this.setMonsterHp(monsterHpDefault + (19.4 * stage));
+            Monster.setPower(monsterPowerDefault + (3.8 * stage));
             maxStage += 10;
         } else {
-            upPoint += Math.ceil(Math.random() * 100) == 45 ? 2 : 1;
-            this.setMonsterHp(monsterHpDefault + (9 * stage));
-            Monster.setPower(monsterPowerDefault + (1.3 * stage));
+            upPoint += Math.ceil(Math.random() * 100) == 45
+                ? 2
+                : 1;
+            this.setMonsterHp(monsterHpDefault + (6.8 * stage));
+            Monster.setPower(monsterPowerDefault + (0.99 * stage));
         }
 
         // expend max level to 50
@@ -205,11 +213,13 @@ var GameLayer = cc.LayerColor.extend({
             this.gameOver();
         }
 
-        this.stageLabel.setString('Stage: ' + (stage % 10 == 0 ? 'Boss(' + stage / 10 + ')!' : stage));
+        this.stageLabel.setString('Stage: ' + (stage % 10 == 0
+            ? 'Boss(' + stage / 10 + ')!'
+            : stage));
         this.upPointLabel.setString('Upgrade Point: ' + upPoint);
     },
 
-    gameOver: function () {
+    gameOver: function() {
         cc.audioEngine.playEffect('res/music/died.mp3');
 
         this.hero.resetHp();
@@ -227,43 +237,37 @@ var GameLayer = cc.LayerColor.extend({
         cc.director.runScene(new GameOverScene());
     },
 
-    createSpAttackButton: function () {
-        const spAttack = new cc.MenuItemImage(
-            'res/Mechanic/SpAttackBtn.png',
-            'res/Mechanic/SpAttackBtn_push.png',
-            function () {
-                this.spAttack();
-            }, this);
+    createSpAttackButton: function() {
+        const spAttack = new cc.MenuItemImage('res/Mechanic/SpAttackBtn.png', 'res/Mechanic/SpAttackBtn_push.png', function() {
+            this.spAttack();
+        }, this);
         this.SPButton = new cc.Menu(spAttack);
         this.SPButton.setPosition(new cc.Point(screenWidth * 0.25, 51.5));
         this.addChild(this.SPButton);
     },
 
-    createUpgradeButton: function () {
-        const upgrade = new cc.MenuItemImage(
-            'res/Mechanic/UpgradeBtn.png',
-            'res/Mechanic/UpgradeBtn_push.png',
-            function () {
-                cc.director.runScene(new UpgradeScene());
-            }, this);
+    createUpgradeButton: function() {
+        const upgrade = new cc.MenuItemImage('res/Mechanic/UpgradeBtn.png', 'res/Mechanic/UpgradeBtn_push.png', function() {
+            cc.director.runScene(new UpgradeScene());
+        }, this);
         this.UpgradeButton = new cc.Menu(upgrade);
         this.UpgradeButton.setPosition(new cc.Point(screenWidth * 0.75, 51.5));
         this.addChild(this.UpgradeButton);
     },
 
-    createBar: function () {
+    createBar: function() {
         this.bar = new Guage();
         this.bar.setPosition(new cc.Point(screenWidth * 0.5, 150));
         this.addChild(this.bar);
     },
 
-    createBg: function () {
+    createBg: function() {
         this.bg = new MainBg();
         this.bg.setPosition(new cc.Point(screenWidth / 2, screenHeight / 2));
         this.addChild(this.bg, 0);
     },
 
-    createTap: function () {
+    createTap: function() {
         this.tap = new Tap();
         if (tapHere) {
             this.tap.setOpacity(255);
@@ -275,7 +279,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.tap);
     },
 
-    createCharacter: function () {
+    createCharacter: function() {
         this.hero = new Hero();
         this.monster = new Monster();
         this.addChild(this.hero);
@@ -285,58 +289,64 @@ var GameLayer = cc.LayerColor.extend({
         this.hero.setPosition(new cc.Point(200, 350));
     },
 
-    createStageLabel: function () {
-        this.stageLabel = cc.LabelTTF.create('Stage: ' + (stage % 10 == 0 ? 'Boss(' + stage / 10 + ')!' : stage), 'Arial', 30);
+    createStageLabel: function() {
+        this.stageLabel = cc.LabelTTF.create('Stage: ' + (stage % 10 == 0
+            ? 'Boss(' + stage / 10 + ')!'
+            : stage), 'Arial', 30);
         this.stageLabel.setPosition(new cc.Point(screenWidth * 0.5, 550));
         this.addChild(this.stageLabel);
     },
 
-    createHeroLabel: function () {
+    createHeroLabel: function() {
         this.heroLabel = cc.LabelTTF.create('HP: ' + GameLayer.getText(Hero.getHp()), 'Arial', 40);
         this.heroLabel.setPosition(new cc.Point(screenWidth * 0.25, 500));
         this.addChild(this.heroLabel);
     },
 
-    createMonsterLabel: function () {
+    createMonsterLabel: function() {
         this.monsterLabel = cc.LabelTTF.create('HP: ' + GameLayer.getText(Monster.getHp()), 'Arial', 40);
         this.monsterLabel.setPosition(new cc.Point(screenWidth * 0.75, 500));
         this.addChild(this.monsterLabel);
     },
 
-    createSPLabel: function () {
-        this.spLabel = cc.LabelTTF.create('SP charge: ' + (countSuccess < 5 ? countSuccess : 'MAX(' + (countSuccess - 4) + ')'), 'Arial', 30);
+    createSPLabel: function() {
+        this.spLabel = cc.LabelTTF.create('SP charge: ' + (countSuccess < 5
+            ? countSuccess
+            : 'MAX(' + (countSuccess - 4) + ')'), 'Arial', 30);
         this.spLabel.setPosition(new cc.Point(screenWidth * 0.25, 220));
         this.addChild(this.spLabel);
     },
 
-    createUpgradePointLabel: function () {
+    createUpgradePointLabel: function() {
         this.upPointLabel = cc.LabelTTF.create('Upgrade Point: ' + upPoint, 'Arial', 30);
         this.upPointLabel.setPosition(new cc.Point(screenWidth * 0.75, 220));
         this.addChild(this.upPointLabel);
     },
 
-    createMuteLabel: function () {
-        this.muteLabel = cc.LabelTTF.create(sound ? '' : 'Mute', 'Arial', 20);
+    createMuteLabel: function() {
+        this.muteLabel = cc.LabelTTF.create(sound
+            ? ''
+            : 'Mute', 'Arial', 20);
         this.muteLabel.setPosition(new cc.Point(screenWidth - 50, screenHeight - 50));
         this.muteLabel.setColor(cc.color(255, 0, 0));
         this.addChild(this.muteLabel);
     },
 
-    createPlayerNameLabel: function () {
+    createPlayerNameLabel: function() {
         var user = firebase.auth().currentUser;
         this.nameLabel = cc.LabelTTF.create(user.displayName, 'Arial', 20);
         this.nameLabel.setPosition(new cc.Point(100, screenHeight - 50));
         this.addChild(this.nameLabel);
     },
 
-    createHeroEffect: function () {
+    createHeroEffect: function() {
         this.eff1 = new Effect();
         this.eff1.setPosition(new cc.Point(500, 350));
         this.eff1.setOpacity(0);
         this.addChild(this.eff1);
     },
 
-    createMonsterEffect: function () {
+    createMonsterEffect: function() {
         this.eff2 = new Effect();
         this.eff2.setPosition(new cc.Point(300, 350));
         this.eff2.setOpacity(0);
@@ -344,7 +354,7 @@ var GameLayer = cc.LayerColor.extend({
     }
 });
 
-GameLayer.getText = function (num) {
+GameLayer.getText = function(num) {
     var text = num.toFixed(2);
 
     if (num > 1000000000) {
@@ -358,7 +368,7 @@ GameLayer.getText = function (num) {
 };
 
 var StartScene = cc.Scene.extend({
-    onEnter: function () {
+    onEnter: function() {
         this._super();
         var layer = new GameLayer();
         layer.init();
