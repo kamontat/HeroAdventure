@@ -21,6 +21,6 @@
     "src/TitleLayer.js",
     "src/GameOverLayer.js",
     "src/Bg.js",
-    "src/effect.js"
+    "src/Effect.js"
   ]
 }

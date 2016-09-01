@@ -256,7 +256,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBar: function() {
-        this.bar = new Guage();
+        this.bar = new Bar();
         this.bar.setPosition(new cc.Point(screenWidth * 0.5, 150));
         this.addChild(this.bar);
     },

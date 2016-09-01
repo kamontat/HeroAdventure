@@ -3,9 +3,9 @@ var res = {
     title_png: "res/Others/HowToPlay.png",
     mainBg_png: "res/Others/MainBackground.png",
     upgradeBg_png: "res/Others/UpgradeBackground.png",
-    bar_png: "res/Mechanic/bar.png",
+    bar_png: "res/Mechanic/Bar.png",
     tap_png: "res/Mechanic/Tap.png",
-    eff_png: "res/Others/eff.png",
+    eff_png: "res/Others/Effect.png",
     //button
     defendButton_png: "res/Mechanic/AttackBtn.png",
     defendButtonPush_png: "res/Mechanic/AttackBtn_push.png",

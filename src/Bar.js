@@ -1,6 +1,6 @@
-var Guage = cc.Sprite.extend({
-    ctor: function () {
+var Bar = cc.Sprite.extend({
+    ctor: function() {
         this._super();
-        this.initWithFile('res/Mechanic/bar.png');
+        this.initWithFile('res/Mechanic/Bar.png');
     }
 });
