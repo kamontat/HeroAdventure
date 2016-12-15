@@ -3,13 +3,13 @@
 I start to renovate my friend game because i see when he present his game, it's sound fun but he don't done this game project so I like to renovate it by the way I like.
 
 ### How to install ###
- 1) Install `python` in your computer.
- 2) `Clone` / `Download` game from this `repository`
- 3) Open game via `terminal`.
- 4) Type `python -m SimpleHTTPServer`
- 5) Open your favorite browser
- 6) Type `http://localhost:8000/` as your website name
- 7) Play it!
+1. Install `python` in your computer.
+2. `Clone` / `Download` game from this `repository`
+3. Open game via `terminal`.
+4. Type `python -m SimpleHTTPServer`
+5. Open your favorite browser
+6. Type `http://localhost:8000/` as your website name
+7. Play it!
 
 #### Version 0 log:
 
